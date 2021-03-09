@@ -33,7 +33,7 @@ var numUser;
 
 // IL CICLO SI RIPERTE FINCHE' END NON è UGUALE A TRUE
 while( !end ){
-    CICLO FINCHE' IN NUMERO INSERITO NON E' VALIDO
+    // CICLO FINCHE' IN NUMERO INSERITO NON E' VALIDO
     do{
         numUser = parseInt(prompt("Inserisci un numero tra( 0 e "+max+" ), occhio alle bombe!"));
     }while(numIsOk(numUser, numsInput, max) != 2 )
@@ -41,15 +41,15 @@ while( !end ){
     // MESSAGGIO IN CASO DI PARTITA PERSA
     if( bombs.includes(numUser)){
         end = true;
-        alert("Hai preso una bomba!!! Partita finita");
+        console.log(numsInput.length)
+        alert("Hai preso una bomba!!! Partita finita, punteggio ottenuto " + parseInt(numsInput.length-1));
     }
     else{
         numsInput.push(numUser);
-        console.log(numsInput);
      // MESSAGGIO IN CASO DI PARTITA VINTA
         if ( numsInput.length == (max - bombs.length)){
             alert("COMPLIMENTI HAI VINTO! INCREDIBILE");
-            end = trueN
+            end = true;
         }
     }
 }
@@ -57,12 +57,15 @@ while( !end ){
 // FUNZIONE PER CONTROLLARE CHE IL NUMERO INSERITO SIA VALIDO
 function numIsOk( input,numsInput,max ){
     if(isNaN(input) || input > max){
+        alert("Numero non valido")
         return 0;
     }
     else if( numsInput.includes(input)){
+        alert("Numero già inserito");
         return 1;
     }
     else{
+        numsInput.push(input)
         return 2;
     }
 }
