@@ -20,34 +20,33 @@ con difficoltà 2 => tra 1 e 50 */
 var diff = 0; //DEFAULT
 var max;
 
-do{
+do {
     diff = parseInt(prompt("INSERIRE LIVELLO DIFFICOLTA'\n0) Easy\n1) Normal\n2) Hard"));
-}while( diff > 2 || diff < 0 || isNaN(diff))
+} while (diff > 2 || diff < 0 || isNaN(diff))
 
 var bombs = generateNumber(diff);
-console.log( bombs);
+console.log(bombs);
 
 var end = false;
 var numsInput = [];
 var numUser;
 
 // IL CICLO SI RIPERTE FINCHE' END NON è UGUALE A TRUE
-while( !end ){
-    // CICLO FINCHE' IN NUMERO INSERITO NON E' VALIDO
-    do{
-        numUser = parseInt(prompt("Inserisci un numero tra( 0 e "+max+" ), occhio alle bombe!"));
-    }while(numIsOk(numUser, numsInput, max) != 2 )
-    
+while (!end) {
+    // CICLO FINCHE'NUMERO INSERITO NON E' VALIDO
+    do {
+        numUser = parseInt(prompt("Inserisci un numero tra( 0 e " + max + " ), occhio alle bombe!"));
+    } while (numIsOk(numUser, numsInput, max) != 2)
+
     // MESSAGGIO IN CASO DI PARTITA PERSA
-    if( bombs.includes(numUser)){
+    if (bombs.includes(numUser)) {
         end = true;
         console.log(numsInput.length)
-        alert("Hai preso una bomba!!! Partita finita, punteggio ottenuto " + parseInt(numsInput.length-1));
-    }
-    else{
+        alert("Hai preso una bomba!!! Partita finita, punteggio ottenuto " + parseInt(numsInput.length - 1));
+    } else {
         numsInput.push(numUser);
-     // MESSAGGIO IN CASO DI PARTITA VINTA
-        if ( numsInput.length == (max - bombs.length)){
+        // MESSAGGIO IN CASO DI PARTITA VINTA
+        if (numsInput.length == (max - bombs.length)) {
             alert("COMPLIMENTI HAI VINTO! INCREDIBILE");
             end = true;
         }
@@ -55,40 +54,40 @@ while( !end ){
 }
 
 // FUNZIONE PER CONTROLLARE CHE IL NUMERO INSERITO SIA VALIDO
-function numIsOk( input,numsInput,max ){
-    if(isNaN(input) || input > max){
+function numIsOk(input, numsInput, max) {
+
+    // Il numero non è valido se maggiore di max  o se è stringa
+    if (isNaN(input) || input > max) {
         alert("Numero non valido")
         return 0;
     }
-    else if( numsInput.includes(input)){
+    // Controllo che non sia già inserito
+    else if (numsInput.includes(input)) {
         alert("Numero già inserito");
         return 1;
-    }
-    else{
+    } else {
         numsInput.push(input)
         return 2;
     }
 }
 
 // FUNZIONE CHE GENERA I NUMERI
-function generateNumber(diff){
+function generateNumber(diff) {
     var arr = [];
     var num = 0;
 
-    // GENERO I NUMERI STABILENDO IL MASSIMO E CONTROLLANDO CHE NON SIA STATO GENERATO GIA' GENERATO LO STESSO NUMERO
-    while ( arr.length != 16) {
-        if( diff == 0){
-            max  = 100;
-        }
-        else if( diff == 1){
+    // GENERO I NUMERI STABILENDO IL MASSIMO E CONTROLLANDO CHE NON SIA STATO GIA' GENERATO LO STESSO NUMERO
+    while (arr.length != 16) {
+        if (diff == 0) {
+            max = 100;
+        } else if (diff == 1) {
             max = 80;
-        }
-        else{
+        } else {
             max = 50;
         }
 
-        num = Math.floor(Math.random()*max+1);
-        if( !arr.includes(num) ){
+        num = Math.floor(Math.random() * max + 1);
+        if (!arr.includes(num)) {
             arr.push(num);
         }
     }
